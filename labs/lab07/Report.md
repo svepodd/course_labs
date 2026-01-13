@@ -631,6 +631,7 @@ CMD ["python", "app.py"]
 | sast.py-arbitrary-file-read           | CRITICAL | Чтение произвольного файла по пути из запроса (LFI/Path Traversal). | Пользователь передаёт путь (`/etc/passwd`, `../../..`), и приложение читает произвольные файлы.                        |
 | sast.py-unsafe-pickle-deserialization | CRITICAL | Небезопасная десериализация через pickle.loads.                     | `pickle` при десериализации способен выполнять код => прямой путь к RCE.                                               |
 | sast.py-eval-user-input               | HIGH     | Опасное использование eval на пользовательском вводе.               | `eval` исполняет ввод пользователя => выполнение произвольного Python-кода.                                            |
+
 Дорабатываем `app.py`:
 
 ```python
