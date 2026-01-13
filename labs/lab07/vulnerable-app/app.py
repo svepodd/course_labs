@@ -103,9 +103,7 @@ def ping():
     except ValueError:
         return "Invalid host", 400
     subprocess.run(
-        ["ping", "-c", "1", host],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
+        ["ping", "-c", "1", host], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
     )
     return f"Pinged {host}"
 
