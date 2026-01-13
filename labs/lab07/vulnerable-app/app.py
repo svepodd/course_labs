@@ -2,7 +2,6 @@ from flask import Flask, request, make_response
 import sqlite3
 import os
 import subprocess
-import pickle
 import logging
 import ast
 import ipaddress
@@ -73,7 +72,7 @@ def get_user():
     username = request.args.get("name", "")
     conn = get_db()
     cur = conn.cursor()
-    query = f"SELECT id, name, email FROM users WHERE name = '{username}'"  
+    query = f"SELECT id, name, email FROM users WHERE name = '{username}'"
     app.logger.debug("Executing query: %s", query)
     rows = cur.execute(query).fetchall()
     conn.close()
@@ -94,13 +93,17 @@ def ping():
         ipaddress.ip_address(host)
     except ValueError:
         return "Invalid host", 400
-    subprocess.run(["ping", "-c", "1", host], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(
+        ["ping", "-c", "1", host],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
     return f"Pinged {host}"
 
 
 @app.route("/backup")
 def backup():
-    target = request.args.get("target", "/tmp/backup.sql") 
+    target = request.args.get("target", "/tmp/backup.sql")
     cmd = ["sh", "-c", f"pg_dump mydb > {target}"]
     subprocess.call(cmd)
     return f"Backup to {target} started"
@@ -155,4 +158,4 @@ def debug():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080) 
+    app.run(host="0.0.0.0", port=8080)
