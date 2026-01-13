@@ -562,6 +562,7 @@ unified-report.csv  unified-report.html  unified-report.json
 | -------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------- | ------------------------------------------------------------- |
 | `CKV_DOCKER_2` | Ensure that HEALTHCHECK instructions have been added to container images | В образе не был задан `HEALTHCHECK`                            | Без healthcheck Docker хуже диагностирует зависшие контейнеры |
 | `CKV_DOCKER_3` | Ensure that a user for the container has been created                    | Контейнер запускался без явно созданного non-root пользователя | Запуск под root повышает риск компрометации хоста/секретов    |
+
 Исправленный `Dockerfile`:
 
 ```Dockerfile
