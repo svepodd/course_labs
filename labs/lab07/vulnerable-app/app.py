@@ -2,7 +2,6 @@ from flask import Flask, request, make_response
 import sqlite3
 import os
 import subprocess
-import pickle
 import logging
 import ast
 import ipaddress
@@ -104,7 +103,9 @@ def ping():
     except ValueError:
         return "Invalid host", 400
     subprocess.run(
-        ["ping", "-c", "1", host], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        ["ping", "-c", "1", host],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
     )
     return f"Pinged {host}"
 
