@@ -644,7 +644,7 @@ FAIL-NEW: 0     FAIL-INPROG: 0  WARN-NEW: 13    WARN-INPROG: 0  INFO: 0 IGNORE: 
     - `X-Frame-Options: DENY` - защита от clickjacking;
     - `X-Content-Type-Options: nosniff` - запрет MIME-sniffing;
     - `Permissions-Policy` - отключение доступа к чувствительным возможностям браузера;
-  	- `Cross-Origin-Resource-Policy: same-origin`;
+    - `Cross-Origin-Resource-Policy: same-origin`;
     - `Cross-Origin-Opener-Policy: same-origin` и `Cross-Origin-Embedder-Policy: require-corp` — усиление site isolation (Spectre).
 2. **Настроены заголовки кеширования** для запрета хранения страниц:
   	- `Cache-Control: no-store, no-cache, must-revalidate, max-age=0`,
