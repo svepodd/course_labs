@@ -77,6 +77,22 @@ else
   echo ""
 fi
 
+MOUNTS=""
+containerd_path="$(command -v containerd 2>/dev/null || true)"
+runc_path="$(command -v runc 2>/dev/null || true)"
+
+if [ -n "$containerd_path" ] && [ -f "$containerd_path" ]; then
+  MOUNTS="${MOUNTS:-} -v ${containerd_path}:/usr/bin/containerd:ro"
+  echo "Mounting ${containerd_path} -> /usr/bin/containerd"
+fi
+
+if [ -n "$runc_path" ] && [ -f "$runc_path" ]; then
+  MOUNTS="${MOUNTS:-} -v ${runc_path}:/usr/bin/runc:ro"
+  echo "Mounting ${runc_path} -> /usr/bin/runc"
+fi
+
+
+
 run_bench() {
   local mounts="$1"
   local extra_opts="$2"
@@ -91,8 +107,11 @@ run_bench() {
     --cap-add audit_control \
     --security-opt no-new-privileges \
     ${extra_opts} \
+    -e DOCKER_HOST=unix:///var/run/docker.sock \
+    -e DOCKER_TLS_VERIFY= \
+    -e DOCKER_CERT_PATH= \
     -e DOCKER_CONTENT_TRUST="${DOCKER_CONTENT_TRUST:-0}" \
-    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     ${mounts} \
     --label docker_bench_security \
     "${BENCH_IMAGE}" 2>&1 | tee "${BENCH_OUTPUT}"
@@ -107,8 +126,7 @@ case "${PLATFORM}" in
     echo ""
 
     MOUNTS="-v /etc:/etc:ro \
-            -v /var/lib:/var/lib:ro \
-            -v /usr/bin:/usr/bin:ro"
+            -v /var/lib:/var/lib:ro"
 
     if [ -f "/usr/bin/containerd" ] && [ ! -d "/usr/bin/containerd" ]; then
       MOUNTS="${MOUNTS} -v /usr/bin/containerd:/usr/bin/containerd:ro"
