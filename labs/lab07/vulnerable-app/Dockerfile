@@ -13,6 +13,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 EXPOSE 8080
 
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/').read()" || exit 1
+
 ENV FLASK_ENV=development
 ENV DEBUG=true
 CMD ["python", "app.py"]

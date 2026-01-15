@@ -1,0 +1,554 @@
+[
+  {
+    "tool": "Semgrep",
+    "file": "vulnerable-app/app.py",
+    "id": "sast.py-info-version-disclosure",
+    "severity": "LOW",
+    "message": "\u0420\u0430\u0441\u043a\u0440\u044b\u0442\u0438\u0435 \u0432\u0435\u0440\u0441\u0438\u0438 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u0432 \u043e\u0442\u0432\u0435\u0442\u0435.",
+    "line": 26
+  },
+  {
+    "tool": "Semgrep",
+    "file": "vulnerable-app/app.py",
+    "id": "sast.py-os-system-rce",
+    "severity": "CRITICAL",
+    "message": "RCE \u0447\u0435\u0440\u0435\u0437 os.system \u0441 \u0434\u0430\u043d\u043d\u044b\u043c\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.",
+    "line": 52
+  },
+  {
+    "tool": "Semgrep",
+    "file": "vulnerable-app/app.py",
+    "id": "sast.py-arbitrary-file-read",
+    "severity": "CRITICAL",
+    "message": "\u0427\u0442\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u043b\u044c\u043d\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430 \u043f\u043e \u043f\u0443\u0442\u0438 \u0438\u0437 \u0437\u0430\u043f\u0440\u043e\u0441\u0430 (LFI/Path Traversal).",
+    "line": 68
+  },
+  {
+    "tool": "Semgrep",
+    "file": "vulnerable-app/app.py",
+    "id": "sast.py-unsafe-pickle-deserialization",
+    "severity": "CRITICAL",
+    "message": "\u041d\u0435\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u0430\u044f \u0434\u0435\u0441\u0435\u0440\u0438\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u0437 pickle.loads.",
+    "line": 79
+  },
+  {
+    "tool": "Semgrep",
+    "file": "vulnerable-app/app.py",
+    "id": "sast.py-eval-user-input",
+    "severity": "HIGH",
+    "message": "\u041e\u043f\u0430\u0441\u043d\u043e\u0435 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435 eval \u043d\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u043e\u043c \u0432\u0432\u043e\u0434\u0435.",
+    "line": 88
+  },
+  {
+    "tool": "Checkov",
+    "file": "vulnerable-app/Dockerfile",
+    "id": "CKV_DOCKER_3",
+    "severity": null,
+    "message": "Ensure that a user for the container has been created",
+    "line": 1
+  },
+  {
+    "tool": "Checkov",
+    "file": "vulnerable-app/Dockerfile",
+    "id": "CKV_DOCKER_2",
+    "severity": null,
+    "message": "Ensure that HEALTHCHECK instructions have been added to container images",
+    "line": 1
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "commons-httpclient-3.1.jar",
+    "id": "CVE-2012-5783",
+    "severity": "MEDIUM",
+    "message": "Apache Commons HttpClient 3.x, as used in Amazon Flexible Payments Service (FPS) merchant Java SDK and other products, does not verify that the server hostname matches a domain name in the subject's C",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "commons-httpclient-3.1.jar",
+    "id": "CVE-2020-13956",
+    "severity": "MEDIUM",
+    "message": "Apache HttpClient versions prior to version 4.5.13 and 5.0.3 can misinterpret malformed authority component in request URIs passed to the library as java.net.URI object and pick the wrong target host ",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "groovy-all-2.1.6.jar",
+    "id": "CVE-2015-3253",
+    "severity": "CRITICAL",
+    "message": "The MethodClosure class in runtime/MethodClosure.java in Apache Groovy 1.7.0 through 2.4.3 allows remote attackers to execute arbitrary code or cause a denial of service via a crafted serialized objec",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "groovy-all-2.1.6.jar",
+    "id": "CVE-2016-6814",
+    "severity": "CRITICAL",
+    "message": "When an application with unsupported Codehaus versions of Groovy from 1.7.0 to 2.4.3, Apache Groovy 2.4.4 to 2.4.7 on classpath uses standard Java serialization mechanisms, e.g. to communicate between",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "groovy-all-2.1.6.jar",
+    "id": "CVE-2020-17521",
+    "severity": "MEDIUM",
+    "message": "Apache Groovy provides extension methods to aid with creating temporary directories. Prior to this fix, Groovy's implementation of those extension methods was using a now superseded Java JDK method ca",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-annotations-2.4.0.jar",
+    "id": "CVE-2018-1000873",
+    "severity": "MEDIUM",
+    "message": "Fasterxml Jackson version Before 2.9.8 contains a CWE-20: Improper Input Validation vulnerability in Jackson-Modules-Java8 that can result in Causes a denial-of-service (DoS). This attack appear to be",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-core-2.4.6.jar",
+    "id": "CVE-2018-1000873",
+    "severity": "MEDIUM",
+    "message": "Fasterxml Jackson version Before 2.9.8 contains a CWE-20: Improper Input Validation vulnerability in Jackson-Modules-Java8 that can result in Causes a denial-of-service (DoS). This attack appear to be",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2017-15095",
+    "severity": "CRITICAL",
+    "message": "A deserialization flaw was discovered in the jackson-databind in versions before 2.8.10 and 2.9.1, which could allow an unauthenticated user to perform code execution by sending the maliciously crafte",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2017-17485",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind through 2.8.10 and 2.9.x through 2.9.3 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploita",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2017-7525",
+    "severity": "CRITICAL",
+    "message": "A deserialization flaw was discovered in the jackson-databind, versions before 2.6.7.1, 2.7.9.1 and 2.8.9, which could allow an unauthenticated user to perform code execution by sending the maliciousl",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-11307",
+    "severity": "CRITICAL",
+    "message": "An issue was discovered in FasterXML jackson-databind 2.0.0 through 2.9.5. Use of Jackson default typing along with a gadget class from iBatis allows exfiltration of content. Fixed in 2.7.9.4, 2.8.11.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-14718",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.x before 2.9.7 might allow remote attackers to execute arbitrary code by leveraging failure to block the slf4j-ext class from polymorphic deserialization.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-14719",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.x before 2.9.7 might allow remote attackers to execute arbitrary code by leveraging failure to block the blaze-ds-opt and blaze-ds-core classes from polymorphic deserializ",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-7489",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization ",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-14379",
+    "severity": "CRITICAL",
+    "message": "SubTypeValidator.java in FasterXML jackson-databind before 2.9.9.2 mishandles default typing when ehcache is used (because of net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup), leadi",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-14540",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind before 2.9.10. It is related to com.zaxxer.hikari.HikariConfig.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-14892",
+    "severity": "CRITICAL",
+    "message": "A flaw was discovered in jackson-databind in versions before 2.9.10, 2.8.11.5 and 2.6.7.3, where it would permit polymorphic deserialization of a malicious object using commons-configuration 1 and 2 J",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-16335",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind before 2.9.10. It is related to com.zaxxer.hikari.HikariDataSource. This is a different vulnerability than CVE-2019-14540.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-16942",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.0.0 through 2.9.10. When Default Typing is enabled (either globally or for a specific property) for an externally exposed JSON",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-16943",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.0.0 through 2.9.10. When Default Typing is enabled (either globally or for a specific property) for an externally exposed JSON",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-17267",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind before 2.9.10. It is related to net.sf.ehcache.hibernate.EhcacheJtaTransactionManagerLookup.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-17531",
+    "severity": "CRITICAL",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.0.0 through 2.9.10. When Default Typing is enabled (either globally or for a specific property) for an externally exposed JSON",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-20330",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.2 lacks certain net.sf.ehcache blocking.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-8840",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.0.0 through 2.9.10.2 lacks certain xbean-reflect/JNDI blocking, as demonstrated by org.apache.xbean.propertyeditor.JndiConverter.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-9547",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.4 mishandles the interaction between serialization gadgets and typing, related to com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig (aka ibatis",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-9548",
+    "severity": "CRITICAL",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.4 mishandles the interaction between serialization gadgets and typing, related to br.com.anteros.dbcp.AnterosDBCPConfig (aka anteros-core).",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-10673",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.4 mishandles the interaction between serialization gadgets and typing, related to com.caucho.config.types.ResourceRef (aka caucho-quercus).",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-5968",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind through 2.8.11 and 2.9.x through 2.9.3 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 and CVE-2017-17485 deserialization fla",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-10650",
+    "severity": "HIGH",
+    "message": "A deserialization flaw was discovered in jackson-databind through 2.9.10.4. It could allow an unauthenticated user to perform code execution via ignite-jta or quartz-core: org.apache.ignite.cache.jta.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-24616",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.6 mishandles the interaction between serialization gadgets and typing, related to br.com.anteros.dbcp.AnterosDBCPDataSource (aka Anteros-DBCP).",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-24750",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.6 mishandles the interaction between serialization gadgets and typing, related to com.pastdev.httpcomponents.configuration.JndiConfiguration.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-35490",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.commons.dbcp2.datasources.PerUserPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-35491",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.commons.dbcp2.datasources.SharedPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36179",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to oadd.org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36180",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.commons.dbcp2.cpdsadapter.DriverAdapterCPDS.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36181",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp.cpdsadapter.DriverAdapterCPDS.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36182",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp2.cpdsadapter.DriverAdapterCPDS.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36183",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.docx4j.org.apache.xalan.lib.sql.JNDIConnectionPool.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36184",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp2.datasources.PerUserPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36185",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp2.datasources.SharedPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36186",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp.datasources.PerUserPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36187",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.tomcat.dbcp.dbcp.datasources.SharedPoolDataSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36188",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to com.newrelic.agent.deps.ch.qos.logback.core.db.JNDIConnectionSource.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36189",
+    "severity": "HIGH",
+    "message": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to com.newrelic.agent.deps.ch.qos.logback.core.db.DriverManagerConnectionSou",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2021-20190",
+    "severity": "HIGH",
+    "message": "A flaw was found in jackson-databind before 2.9.10.7. FasterXML mishandles the interaction between serialization gadgets and typing. The highest threat from this vulnerability is to data confidentiali",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-12022",
+    "severity": "HIGH",
+    "message": "An issue was discovered in FasterXML jackson-databind prior to 2.7.9.4, 2.8.11.2, and 2.9.6. When Default Typing is enabled (either globally or for a specific property), the service has the Jodd-db ja",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-12086",
+    "severity": "HIGH",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.x before 2.9.9. When Default Typing is enabled (either globally or for a specific property) for an externally exposed JSON end",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-14439",
+    "severity": "HIGH",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.x before 2.9.9.2. This occurs when Default Typing is enabled (either globally or for a specific property) for an externally ex",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2020-36518",
+    "severity": "HIGH",
+    "message": "jackson-databind before 2.13.0 allows a Java StackOverflow exception and denial of service via a large depth of nested objects.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2022-42003",
+    "severity": "HIGH",
+    "message": "In FasterXML jackson-databind before versions 2.13.4.1 and 2.12.17.1, resource exhaustion can occur because of a lack of a check in primitive value deserializers to avoid deep wrapper array nesting, w",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2022-42004",
+    "severity": "HIGH",
+    "message": "In FasterXML jackson-databind before 2.13.4, resource exhaustion can occur because of a lack of a check in BeanDeserializer._deserializeFromArray to prevent use of deeply nested arrays. An application",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2018-1000873",
+    "severity": "MEDIUM",
+    "message": "Fasterxml Jackson version Before 2.9.8 contains a CWE-20: Improper Input Validation vulnerability in Jackson-Modules-Java8 that can result in Causes a denial-of-service (DoS). This attack appear to be",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-12384",
+    "severity": "MEDIUM",
+    "message": "FasterXML jackson-databind 2.x before 2.9.9.1 might allow attackers to have a variety of impacts by leveraging failure to block the logback-core class from polymorphic deserialization. Depending on th",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2019-12814",
+    "severity": "MEDIUM",
+    "message": "A Polymorphic Typing issue was discovered in FasterXML jackson-databind 2.x through 2.9.9. When Default Typing is enabled (either globally or for a specific property) for an externally exposed JSON en",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "jackson-databind-2.4.6.jar",
+    "id": "CVE-2023-35116",
+    "severity": "MEDIUM",
+    "message": "jackson-databind through 2.15.2 allows attackers to cause a denial of service or other unspecified impact via a crafted object that uses cyclic dependencies. NOTE: the vendor's perspective is that thi",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "PyYAML:5.3.1",
+    "id": "CVE-2020-14343",
+    "severity": "CRITICAL",
+    "message": "A vulnerability was discovered in the PyYAML library in versions before 5.4, where it is susceptible to arbitrary code execution when it processes untrusted YAML files through the full_load method or ",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "certifi:2018.4.16",
+    "id": "CVE-2023-37920",
+    "severity": "CRITICAL",
+    "message": "Certifi is a curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. Certifi prior to version 2023.07.22 recognizes \"e",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "certifi:2018.4.16",
+    "id": "CVE-2022-23491",
+    "severity": "HIGH",
+    "message": "Certifi is a curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. Certifi 2022.12.07 removes root certificates from",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "paramiko:2.4.1",
+    "id": "CVE-2018-1000805",
+    "severity": "HIGH",
+    "message": "Paramiko version 2.4.1, 2.3.2, 2.2.3, 2.1.5, 2.0.8, 1.18.5, 1.17.6 contains a Incorrect Access Control vulnerability in SSH server that can result in RCE. This attack appear to be exploitable via netw",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "paramiko:2.4.1",
+    "id": "CVE-2022-24302",
+    "severity": "MEDIUM",
+    "message": "In Paramiko before 2.10.1, a race condition (between creation and chmod) in the write_private_key_file function could allow unauthorized information disclosure.",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "paramiko:2.4.1",
+    "id": "CVE-2023-48795",
+    "severity": "MEDIUM",
+    "message": "The SSH transport protocol with certain OpenSSH extensions, found in OpenSSH before 9.6 and other products, allows remote attackers to bypass integrity checks such that some packets are omitted (from ",
+    "line": null
+  },
+  {
+    "tool": "Dependency-Check",
+    "file": "pyjwt:1.7.1",
+    "id": "CVE-2022-29217",
+    "severity": "HIGH",
+    "message": "PyJWT is a Python implementation of RFC 7519. PyJWT supports multiple different JWT signing algorithms. With JWT, an attacker submitting the JWT token can choose the used signing algorithm. The PyJWT ",
+    "line": null
+  }
+]
