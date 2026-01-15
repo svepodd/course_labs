@@ -8,6 +8,7 @@ from flask import (
 )
 import sqlite3
 import os
+from markupsafe import escape
 
 app = Flask(__name__)
 
@@ -38,6 +39,30 @@ def init_db():
     conn.close()
 
 
+@app.after_request
+def add_security_headers(resp):
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'",
+    )
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault(
+        "Permissions-Policy", "geolocation=(), microphone=(), camera=()"
+    )
+    resp.headers.setdefault("Cross-Origin-Resource-Policy", "same-origin")
+
+    resp.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin")
+    resp.headers.setdefault("Cross-Origin-Embedder-Policy", "require-corp")
+
+    resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    resp.headers["Pragma"] = "no-cache"
+    resp.headers["Expires"] = "0"
+
+    resp.headers["Server"] = "dast-demo"
+    return resp
+
+
 @app.route("/")
 def index():
     html = """
@@ -45,7 +70,7 @@ def index():
     <p>Пример уязвимого приложения для лабораторной по DAST.</p>
     <ul>
       <li><a href="/echo?msg=Hello">Reflected XSS / echo</a></li>
-      <li><a href="/search?username=admin">SQL Injection / search</a></li>
+      <li><a href="/search">SQL Injection / search</a></li>
       <li><a href="/login">Небезопасный логин</a></li>
       <li><a href="/profile">Профиль (зависит от cookie)</a></li>
       <li><a href="/admin">«Админка» без нормальной авторизации</a></li>
@@ -53,13 +78,15 @@ def index():
     </ul>
     """
     resp = make_response(html)
-    resp.set_cookie("session", "guest-session-id")
+    resp.set_cookie("session", "guest-session-id", httponly=True, samesite="Lax")
     return resp
 
 
 @app.route("/echo")
 def echo():
     msg = request.args.get("msg", "")
+    msg = escape(msg)
+
     template = """
     <h2>Echo</h2>
     <p>Сообщение: {msg}</p>
@@ -69,16 +96,33 @@ def echo():
     return render_template_string(template)
 
 
-@app.route("/search")
+@app.route("/search", methods=["GET", "POST"])
 def search():
-    username = request.args.get("username", "")
+    if request.method == "GET" and "username" in request.args:
+        return redirect(url_for("search"))
+
+    if request.method == "GET":
+        form = """
+        <h2>Поиск пользователя</h2>
+        <form method="post">
+          <label>Username: <input type="text" name="username"></label>
+          <button type="submit">Search</button>
+        </form>
+        <p>Примечание: поиск выполняется через POST.</p>
+        <a href="/">Назад</a>
+        """
+        return render_template_string(form)
+
+    username = request.form.get("username", "")
+
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    query = f"SELECT id, username, role FROM users WHERE username = '{username}'"  # nosec B608
+
+    query = "SELECT id, username, role FROM users WHERE username = ?"
     rows = []
     error = None
     try:
-        for row in cur.execute(query):
+        for row in cur.execute(query, (username,)):
             rows.append(row)
     except Exception as e:
         error = str(e)
@@ -87,7 +131,7 @@ def search():
 
     template = """
     <h2>Поиск пользователя</h2>
-    <p>Запрос: <code>{{ query }}</code></p>
+    <p>Запрос выполнен.</p>
     {% if error %}
       <p style="color:red;">SQL error: {{ error }}</p>
     {% endif %}
@@ -100,10 +144,9 @@ def search():
     {% else %}
       <p>Ничего не найдено</p>
     {% endif %}
-    <p>Попробуйте, например: <code>?username=admin' OR '1'='1</code></p>
     <a href="/">Назад</a>
     """
-    return render_template_string(template, query=query, rows=rows, error=error)
+    return render_template_string(template, rows=rows, error=error)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -127,8 +170,8 @@ def login():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    query = f"SELECT id, username, role FROM users WHERE username = '{username}' AND password = '{password}'"  # nosec B608
-    row = cur.execute(query).fetchone()
+    query = "SELECT id, username, role FROM users WHERE username = ? AND password = ?"
+    row = cur.execute(query, (username, password)).fetchone()
     conn.close()
 
     if row:
@@ -136,14 +179,13 @@ def login():
         resp = make_response(
             f"<h2>Добро пожаловать, {uname} ({role})!</h2><a href='/'>На главную</a>"
         )
-
-        resp.set_cookie("user", uname)
-        resp.set_cookie("role", role)
+        resp.set_cookie("user", uname, httponly=True, samesite="Lax")
+        resp.set_cookie("role", role, httponly=True, samesite="Lax")
         return resp
-    else:
-        return render_template_string(
-            "<h2>Неверные учетные данные</h2><a href='/login'>Попробовать снова</a>"
-        )
+
+    return render_template_string(
+        "<h2>Неверные учетные данные</h2><a href='/login'>Попробовать снова</a>"
+    )
 
 
 @app.route("/profile")
@@ -195,12 +237,16 @@ def files(subpath=""):
 
     if os.path.isdir(full_path):
         entries = os.listdir(full_path)
+
+        prefix = f"/files/{subpath}" if subpath else "/files"
+        if subpath and not subpath.endswith("/"):
+            prefix += "/"
+
         items = "".join(
-            f"<li><a href='/files/{subpath}{'' if subpath.endswith('/') or subpath == '' else '/'}{e}'>{e}</a></li>"
-            for e in entries
+            f"<li><a href='{prefix}{escape(e)}'>{escape(e)}</a></li>" for e in entries
         )
         html = f"""
-        <h2>Files under /files/{subpath}</h2>
+        <h2>Files under /files/{escape(subpath)}</h2>
         <ul>{items}</ul>
         <p>Пример directory listing без ограничений.</p>
         <a href="/">Назад</a>
@@ -209,9 +255,10 @@ def files(subpath=""):
 
     with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
         content = f.read()
-    return f"<pre>{content}</pre>"
+
+    return f"<pre>{escape(content)}</pre>"
 
 
 if __name__ == "__main__":
     init_db()
-    app.run(host="0.0.0.0", port=8080, debug=True)  # nosec B201,B104
+    app.run(host="0.0.0.0", port=8080, debug=True)
