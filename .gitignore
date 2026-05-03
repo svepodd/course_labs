@@ -1,4 +1,4 @@
-# OS generated files (macOS / Windows / misc)
+# macOS / Windows / misc
 .DS_Store
 .DS_Store?
 ._*
@@ -16,27 +16,37 @@ Thumbs.db
 *.icloud
 CACHEDIR.TAG
 
-# Directories potentially created on remote AFP share
+# remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-# Python: bytecode, cache, tooling
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-.ruff_cache
-
-# Virtual environments
+*.egg-info/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
 venv/
+.venv/
 
-# IDE / editor configs
+# IDE
 .vscode/
 .idea/
 *.swp
+
+# Logs / PID
+*.log
+logs/
+*.pid
+.cache/
 
 # Project-specific reports / tools output
 sast/semgrep-report.json
@@ -46,13 +56,10 @@ reports/
 lib/
 .dependency-check-data
 audit_reports/
+.claude/
+.sixth/
 
-# Logs and runtime files
-*.log
-logs/
-*.pid
-
-# Data exports / office docs
+# Data exports
 *.odt
 *.xlsx
 *.xls
@@ -60,7 +67,7 @@ logs/
 # Build / dist artifacts (site, bundles, etc.)
 dist/
 build/
-site
+site/
 
 # Databases / dumps
 *.sqlite
@@ -83,7 +90,7 @@ site
 *.jar
 *.rar
 *.zip
-# *.tar
+*.tar
 
 # Secrets и env-конфиги
 .env
@@ -92,3 +99,8 @@ site
 
 # Node.js
 node_modules/
+package-lock.json
+
+# Lab-specific
+!labs/lab06/audit_reports/text/cis_audit.txt
+labs/lab07/sca/dependency-check-report/
