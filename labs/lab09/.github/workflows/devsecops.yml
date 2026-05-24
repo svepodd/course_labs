@@ -2,7 +2,7 @@ name: DevSecOps Pipeline
 
 on:
   push:
-    branches: [develop, main]
+    branches: [develop, main, svepodd_lab09]
   pull_request:
     branches: [main]
 
