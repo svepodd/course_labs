@@ -81,7 +81,7 @@ def get_user():
     username = request.args.get("name", "")
     conn = get_db()
     cur = conn.cursor()
-    query = f"SELECT id, name, email FROM users WHERE name = '{username}'"
+    query = f"SELECT id, name, email FROM users WHERE name = '{username}'" # nosec B608
     app.logger.debug("Executing query: %s", query)
     rows = cur.execute(query).fetchall()
     conn.close()
@@ -110,7 +110,7 @@ def ping():
 
 @app.route("/backup")
 def backup():
-    target = request.args.get("target", "/tmp/backup.sql")
+    target = request.args.get("target", "/tmp/backup.sql")  # nosec B108
     cmd = ["sh", "-c", f"pg_dump mydb > {target}"]
     subprocess.call(cmd)
     return f"Backup to {target} started"
@@ -165,4 +165,4 @@ def debug():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)  # nosec B104
