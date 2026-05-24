@@ -97,7 +97,7 @@ $ bandit -r . -f json
 
 </div>
 
-### Установка
+### Установка Dependency-Check
 
 ```bash
 # OWASP Dependency-Check (требует Java 11+)
@@ -118,7 +118,7 @@ $ pip install pip-audit
 $ pip-audit --version
 ```
 
-### Проверка
+### Проверка Dependency-Check
 
 ```bash
 $ dependency-check.sh -s . -o ./reports --format HTML
@@ -160,7 +160,7 @@ $ pip-audit
 
 </div>
 
-### Установка
+### Установка Trivy
 
 ```bash
 # Trivy
@@ -189,7 +189,7 @@ $ wget -O hadolint https://github.com/hadolint/hadolint/releases/latest/download
 $ chmod +x hadolint && sudo mv hadolint /usr/local/bin/
 ```
 
-### Проверка
+### Проверка Trivy
 
 ```bash
 $ trivy --version
@@ -214,7 +214,7 @@ $ hadolint Dockerfile
 
 </div>
 
-### Установка
+### Установка ZAP
 
 OWASP ZAP запускается через Docker — отдельная установка не нужна:
 
@@ -257,7 +257,7 @@ $ docker run -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py -t http://target
 
 </div>
 
-### Установка
+### Установка Gitleaks
 
 ```bash
 # Gitleaks
@@ -294,7 +294,7 @@ $ pre-commit install
 $ pre-commit run --all-files
 ```
 
-### Проверка
+### Проверка Gitleaks
 
 ```bash
 $ gitleaks detect -v
