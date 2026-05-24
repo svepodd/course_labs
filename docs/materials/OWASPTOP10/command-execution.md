@@ -195,42 +195,42 @@ http://example/directory.php?dir=%3Bcat%20/etc/passwd
 
 === "Уязвимый код"
 
-    ```javascript
-    const { exec } = require("child_process");
+```javascript
+const { exec } = require("child_process");
 
-    app.get("/api/ping", (req, res) => {
-      const host = req.query.host;
-      // Пользовательский ввод напрямую в shell
-      exec(`ping -c 4 ${host}`, (err, stdout) => {
-        res.send(stdout);
-      });
-      // host = "8.8.8.8; cat /etc/passwd" → RCE
-    });
-    ```
+app.get("/api/ping", (req, res) => {
+  const host = req.query.host;
+  // Пользовательский ввод напрямую в shell
+  exec(`ping -c 4 ${host}`, (err, stdout) => {
+    res.send(stdout);
+  });
+  // host = "8.8.8.8; cat /etc/passwd" → RCE
+});
+```
 
 === "Защищённый код"
 
-    ```javascript
-    const { execFile } = require("child_process");
+```javascript
+const { execFile } = require("child_process");
 
-    app.get("/api/ping", (req, res) => {
-      const host = req.query.host;
+app.get("/api/ping", (req, res) => {
+  const host = req.query.host;
 
-      // Валидация: только IP или hostname
-      if (!/^[a-zA-Z0-9.-]+$/.test(host)) {
-        return res.status(400).json({ error: "Invalid host" });
-      }
+  // Валидация: только IP или hostname
+  if (!/^[a-zA-Z0-9.-]+$/.test(host)) {
+    return res.status(400).json({ error: "Invalid host" });
+  }
 
-      // execFile — НЕ запускает shell, аргументы как массив
-      execFile("ping", ["-c", "4", host], (err, stdout) => {
-        res.send(stdout);
-      });
-    });
-    ```
+  // execFile — НЕ запускает shell, аргументы как массив
+  execFile("ping", ["-c", "4", host], (err, stdout) => {
+    res.send(stdout);
+  });
+});
+```
 
 !!! warning "Правило"
 
-    Никогда не используйте `exec()` / `system()` с пользовательским вводом. Используйте `execFile()` (Node.js) или `subprocess.run([...], shell=False)` (Python) — аргументы передаются как массив, shell не запускается.
+Никогда не используйте `exec()` / `system()` с пользовательским вводом. Используйте `execFile()` (Node.js) или `subprocess.run([...], shell=False)` (Python) — аргументы передаются как массив, shell не запускается.
 
 ### Внедрение операторов SQL (SQL Injection)
 
@@ -299,38 +299,38 @@ http://example/article.asp?ID=2+and+1=0   (вернется ошибка или 
 
 === "Уязвимый код"
 
-    ```javascript
-    app.post("/api/login", (req, res) => {
-      const { username, password } = req.body;
+```javascript
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
 
-      // Конкатенация пользовательского ввода в SQL
-      const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
-      db.query(query, (err, rows) => {
-        if (rows.length > 0) res.json({ token: generateToken(rows[0]) });
-        else res.status(401).json({ error: "Invalid credentials" });
-      });
-      // username = "' OR '1'='1' --" → обход аутентификации
-    });
-    ```
+  // Конкатенация пользовательского ввода в SQL
+  const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+  db.query(query, (err, rows) => {
+    if (rows.length > 0) res.json({ token: generateToken(rows[0]) });
+    else res.status(401).json({ error: "Invalid credentials" });
+  });
+  // username = "' OR '1'='1' --" → обход аутентификации
+});
+```
 
 === "Защищённый код"
 
-    ```javascript
-    app.post("/api/login", (req, res) => {
-      const { username, password } = req.body;
+```javascript
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
 
-      // Параметризованный запрос — плейсхолдеры вместо конкатенации
-      const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-      db.query(query, [username, password], (err, rows) => {
-        if (rows.length > 0) res.json({ token: generateToken(rows[0]) });
-        else res.status(401).json({ error: "Invalid credentials" });
-      });
-    });
-    ```
+  // Параметризованный запрос — плейсхолдеры вместо конкатенации
+  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+  db.query(query, [username, password], (err, rows) => {
+    if (rows.length > 0) res.json({ token: generateToken(rows[0]) });
+    else res.status(401).json({ error: "Invalid credentials" });
+  });
+});
+```
 
 !!! warning "Правило"
 
-    Всегда используйте параметризованные запросы (prepared statements). Никогда не конкатенируйте пользовательский ввод в SQL-строку. ORM (Sequelize, Prisma, SQLAlchemy) делают это по умолчанию.
+Всегда используйте параметризованные запросы (prepared statements). Никогда не конкатенируйте пользовательский ввод в SQL-строку. ORM (Sequelize, Prisma, SQLAlchemy) делают это по умолчанию.
 
 ### Внедрение серверных расширений (SSI Injection)
 
