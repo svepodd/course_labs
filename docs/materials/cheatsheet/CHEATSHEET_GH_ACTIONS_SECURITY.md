@@ -177,17 +177,17 @@ keywords: "GitHub Actions, CI/CD security, secrets, OIDC, permissions, supply ch
 
 ## Fork PR — ограничения
 
-```yaml
-# Не запускать workflow на PR из форков с write-доступом
-on:
-  pull_request_target:  # ОПАСНО — имеет write permissions
-    types: [opened]
-
-# Безопасная альтернатива
-on:
-  pull_request:         # read-only, без доступа к secrets
-    types: [opened]
-```
+    ```yaml
+    # Не запускать workflow на PR из форков с write-доступом
+    on:
+      pull_request_target:  # ОПАСНО — имеет write permissions
+        types: [opened]
+    
+    # Безопасная альтернатива
+    on:
+      pull_request:         # read-only, без доступа к secrets
+        types: [opened]
+    ```
 
 <div class="lab-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
 
