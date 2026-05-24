@@ -162,14 +162,17 @@ keywords: "Dockerfile, Docker security, multi-stage, distroless, hadolint, USER,
 
 </div>
 
-```dockerfile
-# Хорошо
-COPY requirements.txt .
-COPY app.py .
+=== "Хорошо"
 
-# Плохо — ADD скачивает URL без верификации
-ADD https://example.com/app.tar.gz /app/
-```
+    ```dockerfile
+    COPY requirements.txt .
+    COPY app.py .
+    ```
+=== "Плохо" — ADD скачивает URL без верификации
+
+    ```dockerfile
+    ADD https://example.com/app.tar.gz /app/
+    ```
 
 ***
 
@@ -198,19 +201,19 @@ ADD https://example.com/app.tar.gz /app/
 
 ## .dockerignore
 
-```
-.git
-.github
-.venv
-__pycache__
-*.pyc
-.env
-.env.*
-*.key
-*.pem
-node_modules
-.DS_Store
-```
+    ```
+    .git
+    .github
+    .venv
+    __pycache__
+    *.pyc
+    .env
+    .env.*
+    *.key
+    *.pem
+    node_modules
+    .DS_Store
+    ```
 
 !!! warning "Без .dockerignore"
 
@@ -220,13 +223,9 @@ node_modules
 
 ## Hadolint — правила
 
-```bash
-# Запуск
-hadolint Dockerfile
+Запуск: `hadolint Dockerfile`
 
-# Или через Docker
-docker run --rm -i hadolint/hadolint < Dockerfile
-```
+Или через Docker: `docker run --rm -i hadolint/hadolint < Dockerfile`
 
 <div class="lab-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
 
