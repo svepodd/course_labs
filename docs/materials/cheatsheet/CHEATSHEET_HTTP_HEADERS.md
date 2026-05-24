@@ -104,37 +104,37 @@ server {
 
 === "С helmet (рекомендуется)"
 
-    ```javascript
-    import helmet from "helmet";
+```javascript
+import helmet from "helmet";
 
-    app.use(helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'"],
-          styleSrc: ["'self'", "'unsafe-inline'"],
-          imgSrc: ["'self'", "data:"],
-          frameAncestors: ["'none'"],
-        },
-      },
-      hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
-      referrerPolicy: { policy: "strict-origin-when-cross-origin" },
-    }));
-    ```
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:"],
+      frameAncestors: ["'none'"],
+    },
+  },
+  hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
+  referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+}));
+```
 
 === "Вручную"
 
-    ```javascript
-    app.use((req, res, next) => {
-      res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
-      res.setHeader("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'");
-      res.setHeader("X-Frame-Options", "DENY");
-      res.setHeader("X-Content-Type-Options", "nosniff");
-      res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-      res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-      next();
-    });
-    ```
+```javascript
+app.use((req, res, next) => {
+  res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+  res.setHeader("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+```
 
 ***
 
@@ -193,5 +193,5 @@ docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t https://example.
 
 !!! info "Онлайн-сервисы"
 
-    - [securityheaders.com](https://securityheaders.com) — быстрая оценка A-F
-    - [observatory.mozilla.org](https://observatory.mozilla.org) — детальный аудит от Mozilla
+- [securityheaders.com](https://securityheaders.com) — быстрая оценка A-F
+- [observatory.mozilla.org](https://observatory.mozilla.org) — детальный аудит от Mozilla
