@@ -162,39 +162,39 @@ tagDBPARAMS dbParams, Object& executeResult)
 
 === "Уязвимый код"
 
-    ```javascript
-    app.use((err, req, res, next) => {
-      // Stack trace с внутренними путями и версиями
-      res.status(500).json({
-        error: err.message,
-        stack: err.stack,            // /app/src/controllers/user.js:42
-        query: req.query,            // параметры запроса
-        env: process.env.NODE_ENV,   // "development"
-      });
-    });
-    ```
+```javascript
+app.use((err, req, res, next) => {
+  // Stack trace с внутренними путями и версиями
+  res.status(500).json({
+    error: err.message,
+    stack: err.stack,            // /app/src/controllers/user.js:42
+    query: req.query,            // параметры запроса
+    env: process.env.NODE_ENV,   // "development"
+  });
+});
+```
 
 === "Защищённый код"
 
-    ```javascript
-    app.use((err, req, res, next) => {
-      // Логируем полную ошибку внутренне
-      console.error(err.stack);
+```javascript
+app.use((err, req, res, next) => {
+  // Логируем полную ошибку внутренне
+  console.error(err.stack);
 
-      // Клиенту — только generic message
-      res.status(500).json({
-        error: "Internal Server Error",
-        requestId: req.id,  // для корреляции с логами
-      });
-    });
+  // Клиенту — только generic message
+  res.status(500).json({
+    error: "Internal Server Error",
+    requestId: req.id,  // для корреляции с логами
+  });
+});
 
-    // Скрыть заголовок X-Powered-By
-    app.disable("x-powered-by");
-    ```
+// Скрыть заголовок X-Powered-By
+app.disable("x-powered-by");
+```
 
 !!! warning "Правило"
 
-    Никогда не отдавайте stack traces, SQL-ошибки, внутренние пути и версии ПО клиенту. В production `NODE_ENV=production` — Express автоматически скрывает детали.
+Никогда не отдавайте stack traces, SQL-ошибки, внутренние пути и версии ПО клиенту. В production `NODE_ENV=production` — Express автоматически скрывает детали.
 
 ### Обратный путь в директориях (Path Traversal)
 
@@ -244,37 +244,37 @@ http://example/..%u2216..%u2216some/file
 
 === "Уязвимый код"
 
-    ```javascript
-    app.get("/api/file", (req, res) => {
-      const filename = req.query.name;
-      // Пользователь контролирует путь к файлу
-      const filepath = path.join("/app/uploads", filename);
-      res.sendFile(filepath);
-      // name = "../../../../etc/passwd" → читает системный файл
-    });
-    ```
+```javascript
+app.get("/api/file", (req, res) => {
+  const filename = req.query.name;
+  // Пользователь контролирует путь к файлу
+  const filepath = path.join("/app/uploads", filename);
+  res.sendFile(filepath);
+  // name = "../../../../etc/passwd" → читает системный файл
+});
+```
 
 === "Защищённый код"
 
-    ```javascript
-    app.get("/api/file", (req, res) => {
-      const filename = req.query.name;
+```javascript
+app.get("/api/file", (req, res) => {
+  const filename = req.query.name;
 
-      // Resolve и проверить что путь внутри разрешённой директории
-      const basedir = path.resolve("/app/uploads");
-      const filepath = path.resolve(basedir, filename);
+  // Resolve и проверить что путь внутри разрешённой директории
+  const basedir = path.resolve("/app/uploads");
+  const filepath = path.resolve(basedir, filename);
 
-      if (!filepath.startsWith(basedir)) {
-        return res.status(403).json({ error: "Access denied" });
-      }
+  if (!filepath.startsWith(basedir)) {
+    return res.status(403).json({ error: "Access denied" });
+  }
 
-      res.sendFile(filepath);
-    });
-    ```
+  res.sendFile(filepath);
+});
+```
 
 !!! warning "Правило"
 
-    Всегда используйте `path.resolve()` + проверку `startsWith(basedir)`. Никогда не передавайте пользовательский ввод напрямую в `fs.readFile()` / `res.sendFile()`.
+Всегда используйте `path.resolve()` + проверку `startsWith(basedir)`. Никогда не передавайте пользовательский ввод напрямую в `fs.readFile()` / `res.sendFile()`.
 
 ### Предсказуемое расположение ресурсов (Predictable Resource Location)
 
